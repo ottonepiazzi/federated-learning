@@ -53,7 +53,7 @@ def dataset_partition_IID(dataset, num_clients):
 # In[ ]:
 
 
-#partizionamento dei dati NON_IID (da controllare modifiche per Fashion MNIST)
+#partizionamento dei dati NON_IID
 def dataset_partition_not_IID(dataset, num_clients, shards_per_client=2):
    labels = np.array([dataset.targets[i].item() if torch.is_tensor(dataset.targets[i]) else dataset.targets[i] for i in range(len(dataset))])
    sorted_indices = np.argsort(labels)
