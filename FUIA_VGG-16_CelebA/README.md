@@ -1,1 +1,1 @@
-#FUIA (Sample Unlearning scenario, using VGG-16 on CelebA)
+# FUIA (Sample Unlearning scenario, using VGG-16 on CelebA)
