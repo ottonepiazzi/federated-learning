@@ -46,8 +46,14 @@ The double-nested `img_align_celeba/img_align_celeba/` folder is how Kaggle pack
 
 ### 3. Run
 
+**macOS / Linux:**
 ```bash
 python3 fuia_celeba_sample_unlearning.py
+```
+
+**Windows**
+```bash
+python fuia_celeba_sample_unlearning.py
 ```
 
 On the first run, VGG-16 pretrained weights (~528 MB) are downloaded automatically from PyTorch.
