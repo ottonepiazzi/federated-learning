@@ -56,5 +56,7 @@ python3 fuia_celeba_sample_unlearning.py
 python fuia_celeba_sample_unlearning.py
 ```
 
+At the beginning of each run you are asked to log metrics on WandB. If you want to skip this part, simply insert "3".
+
 On the first run, VGG-16 pretrained weights (~528 MB) are downloaded automatically from PyTorch.
 A pretrained checkpoint is saved to `checkpoints/` so that pretraining is skipped on subsequent runs.
