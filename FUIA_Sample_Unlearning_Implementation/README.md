@@ -1,8 +1,8 @@
-# FUIA - Sample Unlearning (VGG-16 on CelebA)
+# FUIA - Sample Unlearning (CNN on MNIST)
 
 Implementation of the FUIA (Federated Unlearning Inversion Attack) from the paper
 "Model Inversion Attack Against Federated Unlearning" (Zhou et al., IEEE TIFS 2026),
-sample unlearning scenario with Retraining.
+sample unlearning scenario with Retraining on MNIST dataset.
 
 ## Setup
 
@@ -22,41 +22,16 @@ env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 2. Download CelebA
-
-1. Go to https://www.kaggle.com/datasets/jessicali9530/celeba-dataset and click **Download**
-2. Unzip the downloaded archive
-3. Place the contents inside a `data/celeba/` folder in the project directory
-
-The final structure must be:
-
-```
-data/
-  celeba/
-    list_attr_celeba.csv
-    list_eval_partition.csv
-    img_align_celeba/
-      img_align_celeba/
-        000001.jpg
-        000002.jpg
-        ...
-```
-
-The double-nested `img_align_celeba/img_align_celeba/` folder is how Kaggle packages it. Do not rename or flatten it.
-
-### 3. Run
+### 2. Run
 
 **macOS / Linux:**
 ```bash
-python3 fuia_celeba_sample_unlearning.py
+python3 fuia_sample_unlearning.py
 ```
 
 **Windows**
 ```bash
-python fuia_celeba_sample_unlearning.py
+python fuia_sample_unlearning.py
 ```
 
 At the beginning of each run you are asked to log metrics on WandB. If you want to skip this part, simply insert "3".
-
-On the first run, VGG-16 pretrained weights (~528 MB) are downloaded automatically from PyTorch.
-A pretrained checkpoint is saved to `checkpoints/` so that pretraining is skipped on subsequent runs.
