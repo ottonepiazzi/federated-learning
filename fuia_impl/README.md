@@ -1,4 +1,4 @@
-# FUIA - Sample Unlearning (CNN on MNIST)
+# FUIA - Client Unlearning (CNN on MNIST)
 
 Implementation of the FUIA (Federated Unlearning Inversion Attack) from the paper
 "Model Inversion Attack Against Federated Unlearning" (Zhou et al., IEEE TIFS 2026),
