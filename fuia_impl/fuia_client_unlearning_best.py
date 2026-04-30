@@ -43,10 +43,10 @@ PRETRAIN_LR      = 0.01
 NUM_CLASSES      = 10         #full MNIST (instead of only classes 0 and 1)
 DATA_PER_CLIENT  = 1          #paper Sec VI.B: "set the number of data points per client to 1"
 
-# Gradient inversion (paper Section V.B & VII.B)
+# Gradient inversion (paper Section V.B & VII.B; client-unlearning loss = Eq. 18)
 INV_ITERATIONS   = 20000
 INV_LR           = 0.1
-INV_GAMMA        = 0.0        #use only V_k (Psi conflicts: -V_k and Psi are anti-parallel)
+INV_GAMMA        = 0.1        #paper-faithful: weight of Psi term in Eq. 18
 INV_ALPHA        = 1e-5       #minimal TV: allow fine detail
 INV_RESTARTS     = 3
 
@@ -317,16 +317,19 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
                        gamma=INV_GAMMA, alpha=INV_ALPHA,
                        n_iters=INV_ITERATIONS, lr=INV_LR,
                        n_restarts=INV_RESTARTS):
-    
+
     #Force CPU for 2nd-order gradient support with MaxPool2d
     device = torch.device("cpu")
 
-    #V_k (clean gradient from gradient separation) is a parameter UPDATE
-    #direction (-lr * grad), so negate to get gradient direction
-    #Psi (W_orig - W_unlearned) at W_original has positive cosine with
-    #true gradient, so keep as-is
+    #Both V_k and Psi are PARAMETER-UPDATE directions, not gradient directions:
+    #  * V_k = sum of target client's per-round updates (~ -lr * grad).
+    #  * Psi = W_orig - W_unlearned: target's training pushed W_orig in the
+    #    -grad direction relative to W_unlearned, so Psi ~ -eps * grad.
+    #We negate both so that the cosine-distance loss aligns the dummy
+    #image's gradient with +grad (the true gradient at W_original on the
+    #forgotten sample).
     clean_d  = {k: -v.to(device).detach() for k, v in clean_grad.items()}
-    target_d = {k:  v.to(device).detach() for k, v in target_grad.items()}
+    target_d = {k: -v.to(device).detach() for k, v in target_grad.items()}
     keys = sorted(clean_d.keys())
 
     #Valid pixel range after MNIST normalization
@@ -470,7 +473,11 @@ def run_fuia_attack(original_model, stored_updates, client_data, private_data,
     ct_cos = nn.functional.cosine_similarity(vc.unsqueeze(0), vt.unsqueeze(0)).item()
     print(f"  Cosine sim(clean, target): {ct_cos:.4f}")
 
-    #Diagnostic: check gradient alignment with true data at both models
+    #Diagnostic: check gradient alignment with true data at both models.
+    #Theory says cos(true_grad, V_k) and cos(true_grad, Psi) should both be
+    #NEGATIVE (V_k and Psi are parameter-update directions, opposite to grad).
+    #The inversion uses -V_k and -Psi internally, so what gets aligned with
+    #the dummy image's gradient is the negation of these signals.
     print("\n[Diagnostic] Gradient alignment with true data:")
     true_img_t = private_data[target_idx][0].unsqueeze(0)
     true_label_t = torch.tensor([target_label])
@@ -503,9 +510,10 @@ def run_fuia_attack(original_model, stored_updates, client_data, private_data,
             print(f"    {k:30s}: cos(V_k)={cos_clean_layers[i]:.4f}  "
                   f"cos(Psi)={cos_target_layers[i]:.4f}")
 
-    #Step 3: Gradient Inversion
-    #Use original model: diagnostic shows V_k (negated) has cos=+0.90 and
-    #Psi (raw) has cos=+0.95 at W_original — both aligned with true gradient.
+    #Step 3: Gradient Inversion (paper Eq. 18 with gamma=INV_GAMMA).
+    #The inversion negates V_k and Psi internally so that minimizing the
+    #per-layer cosine distance pulls the dummy image's gradient toward the
+    #true gradient direction at W_original.
     print(f"\n[Step 3] Gradient inversion using W_original "
           f"({INV_RESTARTS} restart(s) x {INV_ITERATIONS} iters on CPU)...")
     t0 = time.time()
