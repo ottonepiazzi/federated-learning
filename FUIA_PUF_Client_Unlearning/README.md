@@ -36,7 +36,7 @@ python fuia_puf_client_unlearning_CUDA.py
 ```
 since the code is slightly more optimized for that hardware and so it will result in a faster excecution.
 
-Otherwise run
+Otherwise run:
 
 **macOS / Linux:**
 ```bash
