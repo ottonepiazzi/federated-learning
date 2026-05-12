@@ -2,7 +2,7 @@
 
 Implementation of the FUIA (Federated Unlearning Inversion Attack) from the paper
 "Model Inversion Attack Against Federated Unlearning" (Zhou et al., IEEE TIFS 2026), combined with the PUF algorithm as a new unlearning method from the paper "Federated Unlearning Made Practical: Seamless Integration via Negated Pseudo-Gradients"
-client unlearning scenario on MNIST dataset.
+with client unlearning scenario on MNIST dataset.
 
 ## Setup
 
