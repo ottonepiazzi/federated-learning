@@ -49,8 +49,8 @@ The Sample Unlearning scenario is scaled up to a more complex setting: **VGG-16*
 
 ---
 
-### 5. `FUIA_PUF_Client_Unlearning` — Combining Unlearning Algorithms
-Experimental fusion of the **PUF (Pseudo-gradient Unlearning Framework)** algorithm with the FUIA attack, following the paper:
+### 5. `FUIA_PUF_Client_Unlearning` — Combining Algorithms
+Experimental fusion of the **PUF (Pseudo-gradients Updates for Federated Unlearning)** algorithm with the FUIA attack, following the paper:
 
 > *"Federated Unlearning Made Practical: Seamless Integration via Negated Pseudo-Gradients"*
 
