@@ -1,8 +1,8 @@
-# FUIA - Client Unlearning (CNN on MNIST)
+# FUIA - Client Unlearning (CNN on MNIST) in a Realistic Settings
 
 Implementation of the FUIA (Federated Unlearning Inversion Attack) from the paper
 "Model Inversion Attack Against Federated Unlearning" (Zhou et al., IEEE TIFS 2026),
-client unlearning scenario with Retraining (best version achieved).
+client unlearning scenario with Retraining (version with more realistic settings).
 
 ## Setup
 
@@ -26,12 +26,12 @@ pip install -r requirements.txt
 
 **macOS / Linux:**
 ```bash
-python3 fuia_client_unlearning_best.py
+python3 fuia_client_unlearning_realistic_setting.py
 ```
 
 **Windows**
 ```bash
-python fuia_client_unlearning_best.py
+python fuia_client_unlearning_realistic_setting.py
 ```
 
 At the beginning of each run you are asked to log metrics on WandB. If you want to skip this part, simply insert "3".
