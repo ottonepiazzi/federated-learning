@@ -19,7 +19,7 @@ The work follows a research-driven path, each folder building on the previous on
 
 ---
 
-## The Path
+## Experimental Progression
 
 ### 1. `FedAvg` — The Baseline
 Implementation of **Federated Averaging**, the foundational FL optimization algorithm, following the paper:
