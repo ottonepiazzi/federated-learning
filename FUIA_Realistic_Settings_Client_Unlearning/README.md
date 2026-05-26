@@ -1,4 +1,4 @@
-# FUIA - Client Unlearning (CNN on MNIST) in a Realistic Settings
+# FUIA - Client Unlearning (CNN on MNIST) with Realistic Settings
 
 Implementation of the FUIA (Federated Unlearning Inversion Attack) from the paper
 "Model Inversion Attack Against Federated Unlearning" (Zhou et al., IEEE TIFS 2026),
