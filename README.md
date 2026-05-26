@@ -85,4 +85,4 @@ Some experiments optionally support **WandB** for experiment tracking. When prom
 
 ## Author
 
-**OttonePiazzi** — [github.com/ottonepiazzi](https://github.com/ottonepiazzi)
+**Ottone Piazzi** — [github.com/ottonepiazzi](https://github.com/ottonepiazzi)
