@@ -39,7 +39,7 @@ Scenario: **Client Unlearning** — an entire client is removed from the federat
 
 ---
 
-### 3. `FUIA_Sample_Unlearning` — Sample-Level Unlearning
+### 3. `FUIA_Sample_Unlearning` — Sample Unlearning
 FUIA attack applied to a **Sample Unlearning** scenario, where only specific data samples (rather than a full client) are forgotten. Dataset: **MNIST**.
 
 ---
