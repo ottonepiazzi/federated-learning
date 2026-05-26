@@ -45,7 +45,7 @@ FUIA attack applied to a **Sample Unlearning** scenario, where only specific dat
 ---
 
 ### 4. `FUIA_VGG-16_CelebA` — Scaling Up
-The Sample Unlearning scenario is scaled up to a more complex setting: **VGG-16** architecture on the **CelebA** dataset, to evaluate the attack under more realistic conditions.
+The Sample Unlearning scenario is scaled up to a more complex setting: **VGG-16** architecture on the **CelebA** dataset, to evaluate the attack with a more complex and realistic dataset.
 
 ---
 
