@@ -1,6 +1,6 @@
 # Federated Learning
 
-This repository documents an exploratory journey through **Federated Learning (FL)**, starting from a foundational algorithm implementation and progressively focusing on **federated unlearning** and related **privacy attacks**.
+This repository documents an exploratory journey through **Federated Learning (FL)**, starting from a foundational algorithm implementation and progressively focusing on **federated unlearning** and related **reconstruction attacks**.
 
 The work follows a research-driven path, each folder building on the previous one.
 
