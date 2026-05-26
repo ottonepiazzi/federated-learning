@@ -58,7 +58,7 @@ This explores whether PUF's unlearning mechanism affects the effectiveness of th
 
 ---
 
-### 6. `FUIA_Realistic_Settings_Client_Unlearning` — Back to Basics, Realistically
+### 6. `FUIA_Realistic_Settings_Client_Unlearning` — Back to the Basics, Realistically
 A return to the **Client Unlearning** scenario with MNIST, but in a more **realistic federation setup** — testing how the attack behaves under conditions closer to real-world deployments.
 
 ---
