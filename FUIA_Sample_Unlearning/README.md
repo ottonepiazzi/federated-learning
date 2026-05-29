@@ -35,3 +35,5 @@ python fuia_sample_unlearning.py
 ```
 
 At the beginning of each run you are asked to log metrics on WandB. If you want to skip this part, simply insert "3".
+
+The src folder contains a modular version of the code.
