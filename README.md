@@ -84,11 +84,11 @@ Some experiments optionally support **WandB** for experiment tracking. When prom
 
 ## References
 
-- H. B. McMahan, E. Moore, D. Ramage, S. Hampson, and B. A. y Arcas, *"Communication-Efficient Learning of Deep Networks from Decentralized Data"*, in Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS), 2017, pp. 1273–1282.
+- H. B. McMahan, E. Moore, D. Ramage, S. Hampson, and B. A. y Arcas, *"Communication-Efficient Learning of Deep Networks from Decentralized Data"*, in Proceedings of the 20th International Conference on Artificial Intelligence and Statistics (AISTATS), 2017, pp. 1273–1282. https://proceedings.mlr.press/v54/mcmahan17a.html
 
-- L. Zhou, Y. Zhu, and R. Liu, *"Model Inversion Attack Against Federated Unlearning"*, IEEE Transactions on Information Forensics and Security, vol. 21, pp. 2342–2357, 2026.
+- L. Zhou, Y. Zhu, and R. Liu, *"Model Inversion Attack Against Federated Unlearning"*, IEEE Transactions on Information Forensics and Security, vol. 21, pp. 2342–2357, 2026. https://arxiv.org/abs/2502.14558
 
-- A. Mora, C. Mazzocca, R. Montanari, and P. Bellavista, *"Federated Unlearning Made Practical: Seamless Integration via Negated Pseudo-Gradients"*, Journal of LaTeX Class Files, vol. 14, no. 8, 2021.
+- A. Mora, C. Mazzocca, R. Montanari, and P. Bellavista, *"Federated Unlearning Made Practical: Seamless Integration via Negated Pseudo-Gradients"* https://arxiv.org/abs/2504.05822
 
 
 
