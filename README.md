@@ -16,7 +16,7 @@ The work follows a research-driven path, each folder building on the previous on
 | `FUIA_Sample_Unlearning/` | FUIA attack in a Sample Unlearning scenario (MNIST) |
 | `FUIA_VGG-16_CelebA/` | FUIA attack in a Sample Unlearning scenario (VGG-16 + CelebA) |
 | `FUIA_PUF_Client_Unlearning/` | FUIA attack combined with the PUF unlearning algorithm |
-| `FUIA_Realistic_Settings_Client_Unlearning/` | FUIA attack in a more realistic Client Unlearning scenario (MNIST) |
+| `FUIA_Realistic_Setting_Client_Unlearning/` | FUIA attack in a more realistic Client Unlearning scenario (MNIST) |
 
 
 
@@ -64,7 +64,7 @@ This explores whether PUF's unlearning mechanism affects the effectiveness of th
 
 
 
-### 6. `FUIA_Realistic_Settings_Client_Unlearning` — Back to the Basics, Realistically
+### 6. `FUIA_Realistic_Setting_Client_Unlearning` — Back to the Basics, Realistically
 A return to the **Client Unlearning** scenario with MNIST, but in a more **realistic federation setup** — testing how the attack behaves under conditions closer to real-world deployments.
 
 
