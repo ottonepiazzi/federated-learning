@@ -1,0 +1,20 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+
+torch==2.6.0+cu124; platform_system == "Linux" or platform_system == "Windows"
+torchvision==0.21.0+cu124; platform_system == "Linux" or platform_system == "Windows"
+torchaudio==2.6.0+cu124; platform_system == "Linux" or platform_system == "Windows"
+
+torch==2.6.0; platform_system == "Darwin"
+torchvision==0.21.0; platform_system == "Darwin"
+torchaudio==2.6.0; platform_system == "Darwin"
+
+numpy
+pandas
+matplotlib
+scikit-learn
+tqdm
+pillow
+jupyter
+ipykernel
+tensorboard
+wandb
