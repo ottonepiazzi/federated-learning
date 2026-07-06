@@ -265,10 +265,6 @@ def retrain_without_client(pretrained_sd, private_data, client_data,
 
 
 #PUF-Special unlearning (paper Algorithm 1 with S_t^+ = empty, Eq. 9).
-#With a single target client the data-weighted aggregation
-#Delta_t^- = (1/n) * sum |D_j|*(w_t^j - w_t) over j in S_t^- collapses to
-#a single update pseudo_gradient = w_t^target - w_t, and the unlearned model is:
-#w_unlearned = w_t - eta_u * pseudo_gradient
 def puf_special_unlearn(global_model, private_dataset, client_data_indices,
                         target_client, eta_u,
                         local_epochs, batch_size, learning_rate, device):
