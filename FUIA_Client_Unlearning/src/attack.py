@@ -66,11 +66,6 @@ def run_fuia_attack(original_model, stored_updates, client_data, private_data,
     ct_cos = nn.functional.cosine_similarity(vc.unsqueeze(0), vt.unsqueeze(0)).item()
     print(f"  Cosine sim(clean, target): {ct_cos:.4f}")
 
-    #Diagnostic: check gradient alignment with true data at both models.
-    #Theory says cos(true_grad, V_k) and cos(true_grad, Psi) should both be
-    #NEGATIVE (V_k and Psi are parameter-update directions, opposite to grad).
-    #The inversion uses -V_k and -Psi internally, so what gets aligned with
-    #the dummy image's gradient is the negation of these signals.
     print("\n[Diagnostic] Gradient alignment with true data:")
     true_img_t = private_data[target_idx][0].unsqueeze(0)
     true_label_t = torch.tensor([target_label])
