@@ -375,13 +375,6 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
     #Force CPU for 2nd-order gradient support with MaxPool2d
     device = torch.device("cpu")
 
-    #Both V_k and Psi are PARAMETER-UPDATE directions, not gradient directions:
-    #  * V_k = sum of target client's per-round updates (~ -lr * grad).
-    #  * Psi = W_orig - W_unlearned: target's training pushed W_orig in the
-    #    -grad direction relative to W_unlearned, so Psi ~ -eps * grad.
-    #We negate both so that the cosine-distance loss aligns the dummy
-    #image's gradient with +grad (the true gradient at W_original on the
-    #forgotten sample).
     clean_d  = {k: -v.to(device).detach() for k, v in clean_grad.items()}
     target_d = {k: -v.to(device).detach() for k, v in target_grad.items()}
     keys = sorted(clean_d.keys())
@@ -519,12 +512,6 @@ def run_fuia_attack(original_model, unlearned_model, stored_updates,
     ).item()
     print(f"  Cosine sim(clean, target): {clean_target_cosine_similarity:.4f}")
 
-    #Diagnostic: per-layer cosine of V_k and Psi vs the true gradient at the
-    #target sample, evaluated at both W_original and W_unlearned. Theory
-    #(verified empirically) says both should be NEGATIVE -- V_k and Psi are
-    #parameter-update directions, opposite to the gradient. The inversion
-    #negates them internally so the dummy image's gradient ends up aligned
-    #with +grad.
     print("\n[Diagnostic] Gradient alignment with true data:")
     target_image_tensor      = private_dataset[target_indices[0]][0].unsqueeze(0)
     target_label_tensor      = torch.tensor([target_label])
