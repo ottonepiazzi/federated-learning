@@ -64,11 +64,6 @@ def run_fuia_attack(original_model, stored_updates, client_data, private_data,
     ct_cos = nn.functional.cosine_similarity(vc.unsqueeze(0), vt.unsqueeze(0)).item()
     print(f"  Cosine sim(clean, target): {ct_cos:.4f}")
 
-    #Diagnostic: check gradient alignment with true data at both models.
-    #Theory says cos(true_grad, V_k) and cos(true_grad, Psi) should both be
-    #NEGATIVE (V_k and Psi are parameter-update directions, opposite to grad)
-    #The inversion uses -V_k and -Psi internally, so what gets aligned with
-    #the dummy image's gradient is the negation of these signals.
     print("\n[Diagnostic] Gradient alignment with true data:")
     true_img_t = private_data[target_idx][0].unsqueeze(0)
     true_label_t = torch.tensor([target_label])
@@ -104,7 +99,7 @@ def run_fuia_attack(original_model, stored_updates, client_data, private_data,
     #Step 3: Gradient Inversion (paper Eq. 18 with gamma=INV_GAMMA)
     #The inversion negates V_k and Psi internally so that minimizing the
     #per-layer cosine distance pulls the dummy image's gradient toward the
-    #true gradient direction at W_original.
+    #true gradient direction at W_original
     print(f"\n[Step 3] Gradient inversion using W_original "
           f"({INV_RESTARTS} restart(s) x {INV_ITERATIONS} iters on {INV_DEVICE})...")
     t0 = time.time()
@@ -115,7 +110,7 @@ def run_fuia_attack(original_model, stored_updates, client_data, private_data,
 
     #Compute metrics: compare the reconstruction against every image held by the
     #target client and keep the nearest one (highest PSNR). With a single target
-    #image this reduces to that image (original single-target behaviour).
+    #image this reduces to that image (original single-target behaviour)
     recon_img = reconstructed.squeeze(0)
     best_idx, original_img, mse, psnr = None, None, None, -float("inf")
     for i in client_data[target]:
