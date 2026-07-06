@@ -60,12 +60,6 @@ def run_fuia_attack(original_model, unlearned_model, stored_updates,
     ).item()
     print(f"  Cosine sim(clean, target): {clean_target_cosine_similarity:.4f}")
 
-    #Diagnostic: per-layer cosine of V_k and Psi vs the true gradient at the
-    #target sample, evaluated at both W_original and W_unlearned. Theory
-    #(verified empirically) says both should be NEGATIVE -- V_k and Psi are
-    #parameter-update directions, opposite to the gradient. The inversion
-    #negates them internally so the dummy image's gradient ends up aligned
-    #with +grad.
     print("\n[Diagnostic] Gradient alignment with true data:")
     target_image_tensor      = private_dataset[target_indices[0]][0].unsqueeze(0)
     target_label_tensor      = torch.tensor([target_label])
