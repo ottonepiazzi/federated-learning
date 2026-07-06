@@ -6,9 +6,7 @@ from config import (SEED, DEVICE, IMG_SIZE, IMG_CHANNELS, IMG_MEAN, IMG_STD,
                     INV_ITERATIONS, INV_LR, INV_ALPHA, INV_RESTARTS)
 
 
-#####################################################################
 #FUIA ATTACK (FUIA for Sample Unlearning)
-#####################################################################
 
 #Step 1: Gradient Separation (paper Eq. 8-11)
 def gradient_separation(stored_updates, round_l1_norms, target_client):
