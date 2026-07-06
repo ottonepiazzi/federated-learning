@@ -13,7 +13,7 @@ from federated import client_update, fedavg, evaluate, lr_schedule
 
 
 #FL training: 100% participation, no pretraining
-#We snapshot the freshly-initialized weights and use them as the common
+#snapshot the freshly-initialized weights and use them as the common
 #starting point for both the original FL run and the retraining-based
 #unlearning, so the comparison is clean.
 def run_fl_training():
