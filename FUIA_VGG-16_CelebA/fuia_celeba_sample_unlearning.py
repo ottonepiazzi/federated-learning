@@ -32,7 +32,6 @@ print(f"Device: {DEVICE}")
 
 
 
-#######################################################################################################
 #hyperparameters
 NUM_CLIENTS      = 50
 FRACTION         = 0.2         #20% client participation per round
@@ -51,13 +50,11 @@ IMG_CHANNELS     = 3           #RGB
 IMG_MEAN         = (0.5, 0.5, 0.5)
 IMG_STD          = (0.5, 0.5, 0.5)
 
-#Gradient inversion (paper Section V.B, Eq. 13)
+#Gradient inversion
 INV_ITERATIONS   = 10000
 INV_LR           = 0.01
 INV_ALPHA        = 1e-5         #TV regularization weight (paper Eq. 13)
 INV_RESTARTS     = 3
-#######################################################################################################
-
 
 
 #VGG-16 model architecture
@@ -442,10 +439,7 @@ def retrain_without_samples(pretrained_sd, private_data, client_data,
 
 
 
-#####################################################################
 #FUIA ATTACK (FUIA for Sample Unlearning)
-#####################################################################
-
 #Step 1: Gradient Separation (paper Eq. 8-11)
 def gradient_separation(stored_updates, round_l1_norms, target_client):
     """Eq. 8-11: extract clean gradient for target client using stored updates.
