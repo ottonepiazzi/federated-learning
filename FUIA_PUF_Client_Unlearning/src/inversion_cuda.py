@@ -28,13 +28,6 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
     #when available, otherwise CPU. (Apple Silicon stays on CPU here.)
     device = inversion_device()
 
-    #Both V_k and Psi are PARAMETER-UPDATE directions, not gradient directions:
-    #  * V_k = sum of target client's per-round updates (~ -lr * grad).
-    #  * Psi = W_orig - W_unlearned: target's training pushed W_orig in the
-    #    -grad direction relative to W_unlearned, so Psi ~ -eps * grad.
-    #We negate both so that the cosine-distance loss aligns the dummy
-    #image's gradient with +grad (the true gradient at W_original on the
-    #forgotten sample).
     clean_d  = {k: -v.to(device).detach() for k, v in clean_grad.items()}
     target_d = {k: -v.to(device).detach() for k, v in target_grad.items()}
     keys = sorted(clean_d.keys())
@@ -47,9 +40,6 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
 
     loss_fn = nn.CrossEntropyLoss()
 
-    #All n_restarts dummy images are stacked along dim 0 and optimized together.
-    #vmap+grad below computes a separate per-parameter gradient for each one,
-    #so the restarts remain independent but run as a single batched workload.
     init_xs = []
     for r in range(n_restarts):
         torch.manual_seed(SEED + r * 7919)
@@ -105,7 +95,7 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
 
             #Best-image tracking stays on-device and only syncs every sync_every
             #iters; per-iter .item() calls would force a host sync and serialize
-            #the GPU pipeline.
+            #the GPU pipeline
             if it % sync_every == 0 or it == n_iters:
                 detached = per_loss.detach()
                 improved = detached < best_loss
