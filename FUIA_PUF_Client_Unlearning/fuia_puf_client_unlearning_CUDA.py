@@ -43,7 +43,7 @@ PRETRAIN_LR      = 0.01
 NUM_CLASSES      = 10         #full MNIST (instead of only classes 0 and 1)
 DATA_PER_CLIENT  = 1          #paper Sec VI.B: "set the number of data points per client to 1"
 
-#Gradient inversion (paper Section V.B & VII.B; client-unlearning loss = Eq. 18)
+#Gradient inversion
 INV_ITERATIONS   = 20000
 INV_LR           = 0.1
 INV_GAMMA        = 0.1        #paper-faithful: weight of Psi term in Eq. 18
@@ -264,11 +264,7 @@ def retrain_without_client(pretrained_sd, private_data, client_data,
     return model
 
 
-#PUF-Special unlearning (paper Algorithm 1 with S_t^+ = empty, Eq. 9).
-#With a single target client the data-weighted aggregation
-#Delta_t^- = (1/n) * sum |D_j|*(w_t^j - w_t) over j in S_t^- collapses to
-#a single update pseudo_gradient = w_t^target - w_t, and the unlearned model is:
-#w_unlearned = w_t - eta_u * pseudo_gradient
+#PUF-Special unlearning (paper Algorithm 1 with S_t^+ = empty, Eq. 9)
 def puf_special_unlearn(global_model, private_dataset, client_data_indices,
                         target_client, eta_u,
                         local_epochs, batch_size, learning_rate, device):
@@ -286,7 +282,7 @@ def puf_special_unlearn(global_model, private_dataset, client_data_indices,
         device,
     )
 
-    #Pseudo-gradient (target client's model update on w_t).
+    #Pseudo-gradient (target client's model update on w_t)
     pseudo_gradient = {
         parameter_name: target_state_dict[parameter_name].float()
                         - global_state_dict[parameter_name].float()
@@ -393,13 +389,6 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
     #when available, otherwise CPU. (Apple Silicon stays on CPU here.)
     device = inversion_device()
 
-    #Both V_k and Psi are PARAMETER-UPDATE directions, not gradient directions:
-    #  * V_k = sum of target client's per-round updates (~ -lr * grad).
-    #  * Psi = W_orig - W_unlearned: target's training pushed W_orig in the
-    #    -grad direction relative to W_unlearned, so Psi ~ -eps * grad.
-    #We negate both so that the cosine-distance loss aligns the dummy
-    #image's gradient with +grad (the true gradient at W_original on the
-    #forgotten sample).
     clean_d  = {k: -v.to(device).detach() for k, v in clean_grad.items()}
     target_d = {k: -v.to(device).detach() for k, v in target_grad.items()}
     keys = sorted(clean_d.keys())
@@ -412,9 +401,6 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
 
     loss_fn = nn.CrossEntropyLoss()
 
-    #All n_restarts dummy images are stacked along dim 0 and optimized together.
-    #vmap+grad below computes a separate per-parameter gradient for each one,
-    #so the restarts remain independent but run as a single batched workload.
     init_xs = []
     for r in range(n_restarts):
         torch.manual_seed(SEED + r * 7919)
@@ -470,7 +456,7 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
 
             #Best-image tracking stays on-device and only syncs every sync_every
             #iters; per-iter .item() calls would force a host sync and serialize
-            #the GPU pipeline.
+            #the GPU pipeline
             if it % sync_every == 0 or it == n_iters:
                 detached = per_loss.detach()
                 improved = detached < best_loss
@@ -497,7 +483,7 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
               f"loss = {best_loss[best_idx].item():.4f}")
 
     #Return on CPU so downstream metrics/plotting (which use CPU tensors from
-    #the dataset and call .numpy()) don't hit a device mismatch.
+    #the dataset and call .numpy()) don't hit a device mismatch
     return best_img.detach().cpu()
 
 
@@ -517,7 +503,7 @@ def compute_metrics(original, reconstructed):
 
 #FUIA attack orchestration: takes an already-unlearned model from any
 #unlearning method (retraining, PUF-Special, ...) and runs the three FUIA
-#steps (Gradient Separation, Target Gradient Acquisition, Gradient Inversion).
+#steps (Gradient Separation, Target Gradient Acquisition, Gradient Inversion)
 def run_fuia_attack(original_model, unlearned_model, stored_updates,
                     target_client, target_indices, target_label,
                     target_rounds, private_dataset, test_loader,
@@ -559,12 +545,6 @@ def run_fuia_attack(original_model, unlearned_model, stored_updates,
     ).item()
     print(f"  Cosine sim(clean, target): {clean_target_cosine_similarity:.4f}")
 
-    #Diagnostic: per-layer cosine of V_k and Psi vs the true gradient at the
-    #target sample, evaluated at both W_original and W_unlearned. Theory
-    #(verified empirically) says both should be NEGATIVE -- V_k and Psi are
-    #parameter-update directions, opposite to the gradient. The inversion
-    #negates them internally so the dummy image's gradient ends up aligned
-    #with +grad.
     print("\n[Diagnostic] Gradient alignment with true data:")
     target_image_tensor      = private_dataset[target_indices[0]][0].unsqueeze(0)
     target_label_tensor      = torch.tensor([target_label])
@@ -677,7 +657,7 @@ def run_fuia_attack(original_model, unlearned_model, stored_updates,
 
 
 #PUF-Special eta_u sweep: for each eta_u, apply PUF-Special unlearning and
-#evaluate Test Accuracy + Forget Accuracy on the resulting unlearned model.
+#evaluate Test Accuracy + Forget Accuracy on the resulting unlearned model
 def run_eta_u_sweep(original_model, private_dataset, client_data_indices,
                     target_client, test_loader):
     target_indices  = client_data_indices[target_client]
