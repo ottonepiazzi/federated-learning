@@ -51,20 +51,15 @@ TARGET_CLASS     = 0          #class used when the target holds homogeneous imag
 HOMOGENEOUS_TARGET = False    #True -> target holds `target_size` images all of TARGET_CLASS
 WEIGHTED_AGGREGATION = True   #True -> size-weighted FedAvg; False -> uniform average
 
-#Gradient inversion (paper Section V.B & VII.B; client-unlearning loss = Eq. 18)
+#Gradient inversion
 INV_ITERATIONS   = 8000       #loss plateaus by ~iter 7000 in this regime
 INV_LR           = 0.1
 INV_GAMMA        = 0.1        #paper-faithful: weight of Psi term in Eq. 18
 INV_ALPHA        = 1e-5       #minimal TV: allow fine detail
 INV_RESTARTS     = 1          #restarts find similar optima
 
-#---------------------------------------------------------------------------
-#Optional per-experiment overrides. When the environment variable
-#FUIA_EXPERIMENT is set (e.g. by run_experiment.py), the module
-#experiments/<name>.py is loaded and any UPPER_CASE constant it defines
-#replaces the default above. With FUIA_EXPERIMENT unset, all defaults stand
-#and behaviour is identical to the original code.
-#---------------------------------------------------------------------------
+
+#Optional per-experiment overrides
 import os as _os
 import importlib as _importlib
 
