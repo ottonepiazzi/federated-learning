@@ -74,13 +74,6 @@ def gradient_inversion(model_for_inversion, clean_grad, target_grad, label,
     #CPU:  CPU
     device = INV_DEVICE
 
-    #Both V_k and Psi are PARAMETER-UPDATE directions, not gradient directions:
-    #  * V_k = sum of target client's per-round updates (~ -lr * grad)
-    #  * Psi = W_orig - W_unlearned: target's training pushed W_orig in the
-    #    -grad direction relative to W_unlearned, so Psi ~ -eps * grad
-    #We negate both so that the cosine-distance loss aligns the dummy
-    #image's gradient with +grad (the true gradient at W_original on the
-    #forgotten sample)
     clean_d  = {k: -v.to(device).detach() for k, v in clean_grad.items()}
     target_d = {k: -v.to(device).detach() for k, v in target_grad.items()}
     keys = sorted(clean_d.keys())
