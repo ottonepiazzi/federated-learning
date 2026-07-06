@@ -31,7 +31,7 @@ PRETRAIN_LR      = 0.01        #pre-training LR (0.1 diverges on binary MNIST)
 NUM_CLASSES      = 2           #paper: binary classification (digits 0 and 1)
 DATA_PER_CLIENT  = 8           #paper Sec VII.A: "set the number of data points per client to 8"
 
-#Gradient inversion (paper Section V.B, Eq. 13)
+#Gradient inversion
 INV_ITERATIONS   = 5000         #same as before
 INV_LR           = 0.1         #reduced from 0.1 to avoid overshooting
 INV_ALPHA        = 1e-5         #TV regularization weight (paper Eq. 13)
