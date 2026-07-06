@@ -77,8 +77,8 @@ def load_mnist_binary():
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,)),
     ])
-    train_full = datasets.MNIST(root="data", train=True,  download=False, transform=transform)
-    test_full  = datasets.MNIST(root="data", train=False, download=False, transform=transform)
+    train_full = datasets.MNIST(root="data", train=True,  download=True, transform=transform)
+    test_full  = datasets.MNIST(root="data", train=False, download=True, transform=transform)
 
     #filter to digits 0 and 1 only
     train_indices = [i for i, (_, label) in enumerate(train_full) if label in (0, 1)]
