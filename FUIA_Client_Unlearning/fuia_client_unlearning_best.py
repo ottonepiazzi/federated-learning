@@ -43,7 +43,7 @@ PRETRAIN_LR      = 0.01
 NUM_CLASSES      = 10         #full MNIST (instead of only classes 0 and 1)
 DATA_PER_CLIENT  = 1          #paper Sec VI.B: "set the number of data points per client to 1"
 
-# Gradient inversion (paper Section V.B & VII.B; client-unlearning loss = Eq. 18)
+# Gradient inversion
 INV_ITERATIONS   = 20000
 INV_LR           = 0.1
 INV_GAMMA        = 0.1        #paper-faithful: weight of Psi term in Eq. 18
