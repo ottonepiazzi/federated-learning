@@ -49,8 +49,7 @@ env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-The `requirements.txt` selects the correct PyTorch build automatically: the CUDA 12.4
-build on Linux/Windows and the standard build on macOS.
+The requirements.txt pins a single PyTorch version for all platforms. On machines with CUDA, pip installs the GPU-enabled build automatically.
 
 ### 2. Running the experiments
 
