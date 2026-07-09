@@ -24,16 +24,9 @@ pip install -r requirements.txt
 
 ### 2. Run
 
-**macOS / Linux:**
 ```bash
-python3 fuia_client_unlearning_best.py
+cd src
+python main.py
 ```
 
-**Windows**
-```bash
-python fuia_client_unlearning_best.py
-```
-
-At the beginning of each run you are asked to log metrics on WandB. If you want to skip this part, simply insert "3".
-
-The src folder contains a modular version of the code.
+At the beginning of each run you are asked to log metrics on WandB. To skip it, insert "3".
