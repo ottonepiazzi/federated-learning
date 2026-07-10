@@ -26,20 +26,8 @@ def retrain_without_samples(pretrained_sd, private_data, client_data,
     return run_fl_rounds(model, modified_data, private_data, round_selections)
 
 
-#--- Forgotten-data sweep (paper Sec VII.A.2) ------------------------------
 
 def build_forget_order(client_data):
-    #Build, for every client, a fixed ORDER in which its samples are forgotten.
-    #Forgetting the first N entries of this order (build_forget_sets below) gives
-    #NESTED forget sets: the N=1 set is contained in the N=2 set, and so on. This
-    #is the methodological anchor requested by the tutor: as N grows we ADD
-    #samples to the forget set rather than swapping it, so a PSNR-vs-N curve
-    #measures degradation "at parity of target image".
-    #
-    #The first entry of each client's order is chosen with the exact same
-    #random.choice call sequence as select_forgotten_samples, so element 0 equals
-    #the single sample that was forgotten (and reconstructed) in the N=1 baseline.
-    #The remaining samples are shuffled once (deterministic under the global seed).
     firsts = {client_id: random.choice(sample_indices)
               for client_id, sample_indices in client_data.items()}
 
