@@ -20,13 +20,13 @@ def compute_metrics(original_image, reconstructed_image):
 
 def match_reconstructions(original_images, reconstructed_images):
     #Match a set of N reconstructed images to the N original forgotten images.
-    #
+    
     #Batch gradient inversion recovers the N images up to permutation: virtual
     #slot j does not correspond to original i in any fixed way. We therefore find
     #the assignment (a bijection slot->original) that minimises total MSE via the
     #Hungarian algorithm, then report per-original MSE/PSNR under that assignment.
     #This is the aggregation the sweep graph is built on.
-    #
+    
     #original_images / reconstructed_images: lists of tensors (normalized space).
     #Returns: {"assignment": {orig_idx: recon_idx}, "per_image": [{mse,psnr}, ...]
     #          in original order, plus aggregates mean/best/worst PSNR and MSE}.
