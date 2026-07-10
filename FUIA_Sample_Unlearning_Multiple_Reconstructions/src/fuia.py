@@ -65,15 +65,15 @@ def cosine_similarity_gradients(grad_a, grad_b, param_keys):
 
 def gradient_inversion_batch(original_model, target_gradient, labels):
     #Batch gradient inversion (paper Sec V.A Step 3, generalised to several
-    #forgotten samples per client — the setting studied in the Fig. 9 ablation).
-    #
+    #forgotten samples per client. The setting studied in the Fig. 9 ablation).
+    
     #When a client forgets N samples, the target gradient nabla_k is the AGGREGATE
     #gradient of those N samples (gradients are additive over samples). We recover
     #them by optimising a BATCH of N virtual images jointly, so that the gradient
     #of their summed loss matches nabla_k in direction (cosine). All N images are
-    #optimised at once in one shared objective — there is no sequential pass from
-    #one image to the next; distinct images emerge from their (known) labels and
-    #their different random initialisations. The slot<->sample correspondence is
+    #optimised at once in one shared objective: there is no sequential pass from
+    #one image to the next. Distinct images emerge from their (known) labels and
+    #their different random initialisations. The slot-sample correspondence is
     #arbitrary (permutation ambiguity), which is why callers match reconstructions
     #to originals afterwards.
     device = DEVICE
@@ -157,9 +157,6 @@ def gradient_inversion_batch(original_model, target_gradient, labels):
 
 
 def gradient_inversion(original_model, target_gradient, label):
-    #Backward-compatible single-image entry point (N=1 baseline). Returns a
-    #(1, 1, 28, 28) tensor exactly as before — used by main.py / the monolithic
-    #script. For N=1 this is numerically identical to the previous implementation
-    #(same seeds, same torch.randn(1, 1, 28, 28) draw).
+    #Backward-compatible single-image entry point (N=1 baseline)
     best_batch, _ = gradient_inversion_batch(original_model, target_gradient, [label])
     return best_batch
