@@ -1,7 +1,7 @@
 # FUIA — Sample Unlearning — Multiple Reconstructions (Ablation)
 
-Ablation study on the **FUIA (Federated Unlearning Inversion Attack)** — from the paper
-*"Model Inversion Attack Against Federated Unlearning"* (Zhou et al., IEEE TIFS 2026) —
+Ablation study on the **FUIA (Federated Unlearning Inversion Attack)**, from the paper
+*"Model Inversion Attack Against Federated Unlearning"* (Zhou et al., IEEE TIFS 2026),
 in a **Sample Unlearning** scenario on MNIST, reproducing the analysis of how
 reconstruction quality degrades as the **number of forgotten images per client grows**
 (paper Sec. VII.A.2, Fig. 9).
@@ -54,4 +54,4 @@ Key parameters are in `src/config.py`:
 - **`FUIA_INV_ITERATIONS` / `FUIA_INV_RESTARTS`** — gradient-inversion budget,
   overridable via environment variables without editing the file.
 
-WandB logging is off by default; set `WANDB_MODE=online` (after `wandb login`) to enable it.
+WandB logging is off by default. Set `WANDB_MODE=online` (after `wandb login`) to enable it.
