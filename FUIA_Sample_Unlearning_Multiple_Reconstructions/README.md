@@ -38,6 +38,8 @@ python sweep.py
 
 Results (PSNR/MSE curves, reconstruction grids, `sweep_metrics.csv`) are saved in a
 `sweep_results_*` folder named after the number of classes.
+Result examples for all 10 classes are in `sweep_results_mnist10/`, while result examples for 2 classes (obtained with `MNIST_DIGITS = (0, 1)`)
+are in `sweep_results_mnist2/`.
 
 The sweep caches completed `N` reconstructions in `records.json` (inside the results folder) to
 allow resuming an interrupted run. To force a clean run from scratch, delete that file
