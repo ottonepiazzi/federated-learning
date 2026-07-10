@@ -79,8 +79,7 @@ if __name__ == "__main__":
     plt.suptitle("FUIA Sample Unlearning — MNIST (Retraining)", fontsize=16)
     plt.tight_layout()
 
-    #Save into the project folder (the parent of this src/ package), matching
-    #the original script's output location.
+    #Save into the project folder (the parent of this src/ package)
     save_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                              "fuia_sample_result.png")
     plt.savefig(save_path, dpi=150)
