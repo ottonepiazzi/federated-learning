@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-#
+
 # Ablation sweep: FUIA against sample unlearning as the NUMBER OF FORGOTTEN DATA
-# per client grows (paper Sec VII.A.2 / Fig. 9, reproduced on MNIST).
-#
+# per client grows (paper Sec VII.A.2 / Fig. 9, reproduced on MNIST)
+
 # Pipeline: run federated learning ONCE, then for every N in SWEEP_FORGET_COUNTS
 # make each client forget its first N samples (nested, anchored on the N=1
 # sample), retrain the unlearned model, and run FUIA to reconstruct the target
 # client's N forgotten images jointly (batch gradient inversion). We log per-image
 # and aggregate PSNR/MSE and finally plot PSNR-vs-N (mean over the N reconstructed
-# images + the fixed anchor image).
-#
+# images + the fixed anchor image)
+
 # Quick smoke test (cheap, low quality) from inside src/:
 #   FUIA_INV_ITERATIONS=60 FUIA_INV_RESTARTS=2 WANDB_MODE=disabled python sweep.py
 # Full run (reproduces the baseline at N=1) from inside src/:
@@ -53,7 +53,7 @@ def _wandb_init(config):
 
 
 def _wandb_log(payload):
-    #Safe even in disabled mode: wandb.init has always run, so wandb.log no-ops.
+    #Safe even in disabled mode: wandb.init has always run, so wandb.log no-ops
     wandb.log(payload)
 
 
@@ -61,8 +61,8 @@ def _wandb_finish():
     wandb.finish()
 
 
-#Binary run keeps the original "sweep_results" folder; other class counts get
-#their own folder so the two experiments never overwrite each other.
+#Binary run keeps the original "sweep_results" folder, other class counts get
+#their own folder so the two experiments never overwrite each other
 _OUT_TAG = "" if NUM_CLASSES == 2 else f"_mnist{NUM_CLASSES}"
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                        "sweep_results" + _OUT_TAG)
@@ -84,7 +84,7 @@ def _load_cache():
 
 def _write_outputs(records_by_n):
     #Rewrite cache + CSV + curves from all completed points. Called after every N
-    #so an interrupted run still leaves a usable CSV and curve.
+    #so an interrupted run still leaves a usable CSV and curve
     records = [records_by_n[n] for n in sorted(records_by_n)]
     with open(CACHE_PATH, "w") as f:
         json.dump(records, f, indent=2)
