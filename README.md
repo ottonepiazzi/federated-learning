@@ -2,7 +2,7 @@
 
 This repository documents an exploratory journey through **Federated Learning (FL)**, starting from a foundational algorithm implementation and progressively focusing on **federated unlearning** and related **reconstruction attacks**.
 
-The work follows a research-driven path, each folder building on the previous one.
+The work follows a research-driven path.
 
 
 
@@ -14,9 +14,9 @@ The work follows a research-driven path, each folder building on the previous on
 | `FedAvg/` | Baseline implementation of Federated Averaging |
 | `FUIA_Client_Unlearning/` | FUIA attack in a Client Unlearning scenario (MNIST) |
 | `FUIA_Sample_Unlearning/` | FUIA attack in a Sample Unlearning scenario (MNIST) |
-| `FUIA_Sample_Unlearning_Multiple_Reconstructions/` | Ablation study: FUIA reconstruction quality vs. number of forgotten images per client (MNIST) |
 | `FUIA_VGG-16_CelebA/` | FUIA attack in a Sample Unlearning scenario (VGG-16 + CelebA) |
 | `FUIA_PUF_Client_Unlearning/` | FUIA attack combined with the PUF unlearning algorithm |
+| `FUIA_Sample_Unlearning_Multiple_Reconstructions/` | Ablation study: FUIA reconstruction quality vs. number of forgotten images per client (MNIST) |
 | `FUIA_Realistic_Setting_Client_Unlearning/` | FUIA attack in a more realistic Client Unlearning scenario (MNIST) |
 
 
@@ -49,26 +49,26 @@ FUIA attack applied to a **Sample Unlearning** scenario, where only specific dat
 
 
 
-### 4. `FUIA_Sample_Unlearning_Multiple_Reconstructions` — Ablation Study
-An ablation on the Sample Unlearning scenario, studying how the quality of the FUIA
-reconstruction degrades as the **number of forgotten and reconstructed images per client grows**
-(paper Sec. VII.A.2, Fig. 9), reproduced on **MNIST**.
-
-
-
-
-### 5. `FUIA_VGG-16_CelebA` — Scaling Up
+### 4. `FUIA_VGG-16_CelebA` — Scaling Up
 The Sample Unlearning scenario is scaled up to a more complex setting: **VGG-16** architecture on the **CelebA** dataset, to evaluate the attack with a more complex and realistic dataset.
 
 
 
 
-### 6. `FUIA_PUF_Client_Unlearning` — Combining Algorithms
+### 5. `FUIA_PUF_Client_Unlearning` — Combining Algorithms
 Experimental fusion of the **PUF (Pseudo-gradients Updates for Federated Unlearning)** algorithm with the FUIA attack, following the paper:
 
 > *"Federated Unlearning Made Practical: Seamless Integration via Negated Pseudo-Gradients"*
 
 This explores whether PUF's unlearning mechanism affects the effectiveness of the inversion attack.
+
+
+
+
+### 6. `FUIA_Sample_Unlearning_Multiple_Reconstructions` — Ablation Study
+An ablation on the Sample Unlearning scenario, studying how the quality of the FUIA
+reconstruction degrades as the **number of forgotten and reconstructed images per client grows**
+(paper Sec. VII.A.2, Fig. 9), reproduced on **MNIST**.
 
 
 
